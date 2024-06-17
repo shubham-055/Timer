@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { RButton } from '../components/Rbutton';
 
-const App = () => {
+const FTimer = () => {
   const [inputTime, setInputTime] = useState('');
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
@@ -71,11 +72,13 @@ const App = () => {
       />
       <Text style={styles.timerText}>{formatTime(time)}</Text>
       <View style={styles.buttons}>
-      <TouchableOpacity
+
+      {/* <TouchableOpacity
           onPress={startTimer}
           style={[styles.button, {backgroundColor: hasStarted ? 'grey' : '#35b533'}]}
           disabled={hasStarted} 
-        ><Text style={styles.btntext}>Start</Text></TouchableOpacity>
+        ><Text style={styles.btntext}>Start</Text></TouchableOpacity> */}
+        <RButton onPress={startTimer} buttonStyle={styles.button} disable={hasStarted} name={'Start'} textStyle={styles.btntext} bgcolor='#35b533' />
         <TouchableOpacity onPress={pauseTimer} style={[styles.button, {backgroundColor: isPaused ? '#5775c9' : '#e04857'}]}><Text style={styles.btntext}>{isPaused ? 'Resume' : 'Stop'}</Text></TouchableOpacity>
         <TouchableOpacity onPress={resetTimer} style={[styles.button, {backgroundColor: '#f5bc42'}]}><Text style={styles.btntext}>Reset</Text></TouchableOpacity>
       </View>
@@ -128,4 +131,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default App;
+export default FTimer;
