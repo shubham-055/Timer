@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { RButton } from '../components/Rbutton';
 
 class CTimer extends Component {
   constructor(props) {
@@ -18,7 +19,6 @@ class CTimer extends Component {
     if (this.state.isRunning && !this.state.isPaused && this.state.time > 0) {
       if (this.timer === null) {
         this.timer = setInterval(() => {
-          console.log('Time');
           this.setState((prevState) => ({ time: prevState.time - 1 }));
         }, 1000);
       }
@@ -90,25 +90,9 @@ class CTimer extends Component {
         />
         <Text style={styles.timerText}>{this.formatTime(time)}</Text>
         <View style={styles.buttons}>
-          <TouchableOpacity
-            onPress={this.startTimer}
-            style={[styles.button, { backgroundColor: hasStarted ? 'grey' : '#35b533' }]}
-            disabled={hasStarted}
-          >
-            <Text style={styles.btntext}>Start</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.pauseTimer}
-            style={[styles.button, { backgroundColor: isPaused ? '#5775c9' : '#e04857' }]}
-          >
-            <Text style={styles.btntext}>{isPaused ? 'Resume' : 'Stop'}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={this.resetTimer}
-            style={[styles.button, { backgroundColor: '#f5bc42' }]}
-          >
-            <Text style={styles.btntext}>Reset</Text>
-          </TouchableOpacity>
+        <RButton onPress={this.startTimer} buttonStyle={styles.button} disable={hasStarted} name={'Start'} textStyle={styles.btntext} bgcolor='#35b533' />
+        <RButton onPress={this.pauseTimer} buttonStyle={styles.button}  name={isPaused ? 'Resume' : 'Stop'} textStyle={styles.btntext} bgcolor={isPaused ? '#5775c9' : '#e04857'} />
+        <RButton onPress={this.resetTimer} buttonStyle={styles.button} name={'Reset'} textStyle={styles.btntext} bgcolor='#f5bc42' />
         </View>
       </View>
     );

@@ -62,7 +62,7 @@ export const RButton = ({
             <Text style={[styles.text,textStyle]}>{name}</Text>
           )} 
       </TouchableOpacity>
-    
+   
   );
 };
 

@@ -11,11 +11,9 @@ const FTimer = () => {
 
 
   useEffect(() => {
-    let timer;
+    let timer:any;
     if (isRunning && !isPaused && time > 0) {
       timer = setInterval(() => {
-        console.log('Time');
-        
         setTime((prevTime) => prevTime - 1);
       }, 1000);
     } else if (time === 0) {
@@ -48,7 +46,7 @@ const FTimer = () => {
     setHasStarted(false);
   };
 
-  function formatTime(seconds) {
+  function formatTime(seconds:any) {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
@@ -73,14 +71,11 @@ const FTimer = () => {
       <Text style={styles.timerText}>{formatTime(time)}</Text>
       <View style={styles.buttons}>
 
-      {/* <TouchableOpacity
-          onPress={startTimer}
-          style={[styles.button, {backgroundColor: hasStarted ? 'grey' : '#35b533'}]}
-          disabled={hasStarted} 
-        ><Text style={styles.btntext}>Start</Text></TouchableOpacity> */}
+      
         <RButton onPress={startTimer} buttonStyle={styles.button} disable={hasStarted} name={'Start'} textStyle={styles.btntext} bgcolor='#35b533' />
-        <TouchableOpacity onPress={pauseTimer} style={[styles.button, {backgroundColor: isPaused ? '#5775c9' : '#e04857'}]}><Text style={styles.btntext}>{isPaused ? 'Resume' : 'Stop'}</Text></TouchableOpacity>
-        <TouchableOpacity onPress={resetTimer} style={[styles.button, {backgroundColor: '#f5bc42'}]}><Text style={styles.btntext}>Reset</Text></TouchableOpacity>
+        <RButton onPress={pauseTimer} buttonStyle={styles.button}  name={isPaused ? 'Resume' : 'Stop'} textStyle={styles.btntext} bgcolor={isPaused ? '#5775c9' : '#e04857'} />
+        <RButton onPress={resetTimer} buttonStyle={styles.button} name={'Reset'} textStyle={styles.btntext} bgcolor='#f5bc42' />
+
       </View>
     </View>
   );
