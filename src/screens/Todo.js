@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   SafeAreaView,
   View,
@@ -11,6 +11,7 @@ import {
   Platform,
   Pressable,
   Dimensions,
+  Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -63,13 +64,17 @@ const ToDoList = () => {
     saveTasks(newTasks);
   };
 
+
+
   const deleteTask = (taskId) => {
     const newTasks = tasks.filter((task) => task.id !== taskId);
     setTasks(newTasks);
     saveTasks(newTasks);
   };
 
+  
   const RenderItem = ({ item }) => {
+    const swipeableRef = useRef(null);
     const rightSwipe = () => {
       return (
         <View style={styles.deleteSwipe}>
@@ -90,12 +95,34 @@ const ToDoList = () => {
       );
     };
 
+    const confirmDeleteTask = (taskId) => {
+        Alert.alert(
+          'Delete Task',
+          'Are you sure you want to delete this task?',
+          [
+            {
+              text: 'Cancel',
+              style: 'cancel',
+              onPress:()=>swipeableRef.current?.close()
+            },
+            {
+              text: 'Delete',
+              style: 'destructive',
+              onPress: () => deleteTask(taskId),
+            },
+          ],
+          { cancelable: true }
+        );
+      };
+    
+
     return (
       <GestureHandlerRootView>
         <Swipeable
+        ref={swipeableRef}
           renderRightActions={rightSwipe}
           renderLeftActions={leftSwipe}
-          onSwipeableRightOpen={() => deleteTask(item.id)}
+          onSwipeableRightOpen={() => confirmDeleteTask(item.id)}
           onSwipeableLeftOpen={() => toggleTaskCompletion(item.id)}
           overshootFriction={2}
         >
@@ -109,7 +136,7 @@ const ToDoList = () => {
               <Text style={[styles.taskText, item.completed && styles.taskTextCompleted]}>{item.text}</Text>
             </Pressable>
             <View style={styles.taskButtons}>
-              <TouchableOpacity onPress={() => deleteTask(item.id)}>
+              <TouchableOpacity onPress={() => confirmDeleteTask(item.id)}>
                 <Icon name="trash" size={20} color="red" />
               </TouchableOpacity>
             </View>
@@ -171,6 +198,7 @@ const styles = StyleSheet.create({
   },
   taskContainer: {
     flexDirection: 'row',
+    flex:1,
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: 'white',
@@ -188,10 +216,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   task: {
+    flex:1,
     flexDirection: 'row',
     alignItems: 'center',
   },
   taskText: {
+    flex:1,
     fontSize: 16,
     marginLeft: 6,
   },
@@ -202,6 +232,7 @@ const styles = StyleSheet.create({
   taskButtons: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginLeft:4
   },
   inputWrapper: {
     position: 'absolute',
