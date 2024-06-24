@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import {
   SafeAreaView,
   View,
@@ -17,10 +17,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/Ionicons';
 import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome'
 import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler';
+import { ColorContext } from '../Theme/ThemeProvider';
 
 const {height, width} = Dimensions.get('screen');
 
 const ToDoList = () => {
+  const dynamicColors=useContext(ColorContext);
   const [tasks, setTasks] = useState([]);
   const [taskText, setTaskText] = useState('');
 
