@@ -12,6 +12,7 @@ import Mentor from '../screens/MentorInfo';
 import Tabs from './Tabs';
 import FTimer from '../screens/TimerFunctionalBase';
 import ToDoList from '../screens/Todo';
+import Animation from '../screens/Animation';
 
 const Drawer = createDrawerNavigator();
 
@@ -41,6 +42,8 @@ const DrawerNav = () => {
       <Drawer.Screen name="Latest News" component={Tabs} />
       <Drawer.Screen name="Timer" component={FTimer} />
       <Drawer.Screen name="ToDoList" component={ToDoList} />
+      <Drawer.Screen name="Animation" component={Animation} options={{unmountOnBlur:true}}/>
+      
     </Drawer.Navigator>
   );
 };
