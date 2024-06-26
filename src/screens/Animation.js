@@ -1,55 +1,3 @@
-// import { View, Text, Dimensions, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native';
-// import React from 'react';
-// import Animated, { useAnimatedStyle, useSharedValue, withSpring } from 'react-native-reanimated';
-// import { useSafeAreaInsets } from 'react-native-safe-area-context';
-
-// const Animation = () => {
-//     const { width: xlimit, height: ylimit } = Dimensions.get("window");
-//     const insets = useSafeAreaInsets();
-//     const translateX = useSharedValue(0);
-//     const translateY = useSharedValue(0);
-//     const Boxheight = useSharedValue(100);
-//     const Boxwidth = useSharedValue(100);
-
-//     const handlePress = () => {
-//         const randomX = Math.floor(Math.random() * (xlimit - Boxwidth.value));
-//         const randomY = Math.floor(Math.random() * (ylimit - Boxheight.value-insets.top-insets.bottom));
-
-//         translateX.value = randomX;
-//         translateY.value = randomY;
-// console.log('xlimit--',xlimit,'ylimit----',ylimit);
-//         console.log('New Position------->x:', randomX, 'y:', randomY);
-//     };
-
-//     const animatedStyles = useAnimatedStyle(() => ({
-//         transform: [
-//             { translateX: withSpring(translateX.value) },
-//             { translateY: withSpring(translateY.value) },
-//         ],
-//     }));
-
-//     return (
-//         <SafeAreaView style={{flex:1}}>
-//             <TouchableOpacity onPress={handlePress}>
-//                 <Animated.View
-//                     style={[
-//                         {
-//                             height: Boxheight.value,
-//                             width: Boxwidth.value,
-//                             backgroundColor: '#b58df1',
-//                             borderRadius: 20,
-//                             position: "absolute",
-//                         },
-//                         animatedStyles
-//                     ]}
-//                 />
-//             </TouchableOpacity>
-//         </SafeAreaView>
-//     )
-// }
-
-// export default Animation;
-
 import { View, Dimensions, SafeAreaView, TouchableOpacity } from 'react-native';
 import React, { useEffect } from 'react';
 import Animated, { useAnimatedStyle, useSharedValue, withSpring, interpolateColor, withTiming } from 'react-native-reanimated';
@@ -100,10 +48,6 @@ const Animation = () => {
         Boxwidth.value = randomWidth;
         color.value = randomColor;
 
-        console.log('xlimit--', xlimit, 'ylimit----', ylimit);
-        console.log('New Position------->x:', randomX, 'y:', randomY);
-        console.log('New Size------->height:', randomHeight, 'width:', randomWidth);
-        console.log('New Color------->color:', randomColor);
     };
 
     const animatedStyles = useAnimatedStyle(() => ({
